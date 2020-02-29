@@ -7,7 +7,7 @@ import math
 # CL is lift coefficient
 # S is the surface area of the wing
 # w is the weight of the aircraft
-def glide_velocity(plane_weight, air_density, wing_sa):
+def glide_velocity(plane_weight, air_density, wing_sa, drag_coef, lift_coef):
     return math.sqrt((2 * plane_weight) / (air_density * wing_sa * math.sqrt(drag_coef ** 2 + lift_coef ** 2)))
 
 # Method that returns the glide ratio for a given bank angle.
