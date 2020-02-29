@@ -18,8 +18,8 @@ def main():
     # Glide Ratio Turn = Glide Ratio Straight x Cos(Ө)
 
 # Return where the plane is going to land in the x coordinate
-def landing_x(cur_alt):
-    equations.glide_range(cur_alt)
+def landing_x(glideratio, cur_alt):
+    equations.glide_range(glideratio, cur_alt)
 
 # Return where the plane is going to land in the z coordinate
 def landing_z():
