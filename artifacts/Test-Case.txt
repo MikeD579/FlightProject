@@ -1,0 +1,58 @@
+GIVEN:
+---------------------------------------
+BANK ANGLE: 30 DEGREES
+VELOCITY: 65 KNOTS
+GLIDE RATIO: 9:1
+GLIDE RATIO AT 30 DEGREES: 7.79:1
+ASSUMPTION: Hold the bank angle for 2 seconds
+ASSUMPTION: Plane starting facing is 90 degrees
+STARTING COORDINATES: (0,0)
+STARTING HEIGHT: 350 feet
+---------------------------------------
+FIND:
+---------------------------------------
+LANDING POSITION: ????
+---------------------------------------
+// Note that 1091 is a constant 
+// Formulas taken from https://aviation.stackexchange.com/questions/2871/how-to-calculate-angular-velocity-and-radius-of-a-turn
+TURN RATE: 1,091tan(30)/65 = 9.69 deg/s
+// Degrees traveled is the turn rate times the time bank angle is held.
+DEGREES TRAVELED: 9.69 * 2 = 19.38 deg (theta for arc)
+
+// Formula taken from https://aviation.stackexchange.com/questions/2871/how-to-calculate-angular-velocity-and-radius-of-a-turn
+// Arc length is circumference times (angle / 360)
+RADIUS OF TURN: 65^2/(11.26 * tan(30)) = 604.904 feet
+ARC LENGTH: 2 * pi * 604.904 * 19.38 / 360 = 204.50 feet
+NEW FACING IN DEGREES: 90 + 19.38 = 109.38
+
+// We derived this formula. The PNG from the paint session is in github.
+HEIGHT LOST DURING THE TURN: 2 * 65 knots(1.6878099) / (7.79) = 28.17 feet
+
+// Using trig and the radius, we deduced how to do this.
+// 19.38 is the degrees of the outter arc, but is the same for the triangle we drew.
+// Subtracted the product from the radius to figure out how far in x direction traveled.
+X COORD: 604.904 * cos(19.38) = 570.63
+         604.904 - 570.63 = 33.974
+Y COORD: 604.904 * sin(19.38) = 200.73
+COORDINATES FOR ENDING BANK: (-33.974, 200.73) with a facing of 109.38 degrees
+
+
+
+FINAL LANDING:
+convert from rect -> polar
+sqrt((-33.974)^2 + (200.73)^2) = 203.59 at angle 109.38
+
+add the vector of the glide distance
+NEW HEIGHT = 350 - 28.17 = 321.83 feet
+VECTOR FOR GLIDE DISTANCE: 321.83 * 9 = 2896.47
+
+FINAL MAGNITUDE = 3218.3
+
+convert back to rect
+X: 2896.47 * cos(109.38) = -961.141
+Y: 2896.47 * sin(109.38) = 2732.35
+
+FINAL COORDS: (-961.141, 2732.35) in feet
+
+** ARC LENGTH IS CIRCUMFERENCE * (ARC THETA / 360)
+** 1.6878099 feet/s = 1 knot
